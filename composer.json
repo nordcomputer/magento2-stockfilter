@@ -1,0 +1,15 @@
+{
+    "name": "nordcomputer/module-stockfilter",
+    "description": "Enabels filtering by stock status",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Nordcomputer\\Stockfilter\\": ""
+        }
+    }
+}
