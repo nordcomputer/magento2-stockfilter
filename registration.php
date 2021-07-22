@@ -6,4 +6,3 @@
 use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Nordcomputer_Stockfilter', __DIR__);
-
