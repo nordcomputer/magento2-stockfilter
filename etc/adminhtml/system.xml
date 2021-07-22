@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+      <tab id="nordcomputer_stockfilter" translate="label tooltip comment" sortOrder="999999">
+          <label>Nordcomputer Stock-Filter</label>
+      </tab>
+      <section id="stockfilter" translate="label tooltip comment" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Stockfilter</label>
+            <tab>nordcomputer_stockfilter</tab>
+            <resource>Nordcomputer_Stockfilter::main</resource>
+            <group id="cronjobs" translate="label tooltip comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+              <label>Cronjob Configuration</label>
+              <field id="cronjobupdate" translate="label tooltip comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Cronjob for updating stock-filter</label>
+                    <comment>Set time for cronjob (for example: * * * * *   to run every minute)</comment>
+              </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -19,17 +19,19 @@ class InstallData implements InstallDataInterface
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'filter_stock');
+
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'filter_stock',
             [
-                'type' => 'text',
+                'type' => 'int',
                 'backend' => '',
-                'frontend' => '',
+                'frontend' => 'In stock',
                 'label' => 'Stock Filter',
-                'input' => 'boolean',
+                'input' => 'select',
                 'class' => '',
-                'source' => \Magento\Eav\Model\Entity\Attribute\Source\Boolean::class,
+                'source' => \Nordcomputer\Stockfilter\Model\Config\Source\Options::class,
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'visible' => true,
                 'required' => false,
