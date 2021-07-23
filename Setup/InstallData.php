@@ -27,8 +27,8 @@ class InstallData implements InstallDataInterface
             [
                 'type' => 'int',
                 'backend' => '',
-                'frontend' => 'In stock',
-                'label' => 'Stock Filter',
+                'frontend' => '',
+                'label' => 'In Stock',
                 'input' => 'select',
                 'class' => '',
                 'source' => \Nordcomputer\Stockfilter\Model\Config\Source\Options::class,

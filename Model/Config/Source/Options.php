@@ -12,8 +12,8 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     public function getAllOptions()
     {
         $this->_options = [
-                ['label' => __('No'), 'value'=> false ],
-                ['label' => __('Yes'), 'value'=> true]
+                ['label' => __('No'), 'value'=> '' ],
+                ['label' => __('Yes'), 'value'=> 1]
         ];
         return $this->_options;
     }

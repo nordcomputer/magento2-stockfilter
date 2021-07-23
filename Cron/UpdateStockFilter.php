@@ -5,6 +5,7 @@ namespace Nordcomputer\Stockfilter\Cron;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\CatalogInventory\Api\Data\StockItemInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class UpdateStockFilter
 {
@@ -14,29 +15,33 @@ class UpdateStockFilter
 
     public function __construct(
         CollectionFactory $CollectionFactory,
-        StockRegistryInterface $stockRegistry
+        StockRegistryInterface $stockRegistry,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->CollectionFactory = $CollectionFactory;
         $this->stockRegistry = $stockRegistry;
+        $this->scopeConfig = $scopeConfig;
     }
     public function execute()
     {
-        $collection = $this->CollectionFactory->create()
-        ->addAttributeToSelect('*')
-        ->load();
-        foreach ($collection as $product) {
-            if ($this->getStockStatus($product->getId())==true) {
-                if ($product->getFilterStock()==0 || $product->getFilterStock()==false) {
-                    $product->setFilterStock(1);
-                    $product->save();
+        if ($this->scopeConfig->getValue('cataloginventory/cronjobs/is_enabled')==1) {
+            $collection = $this->CollectionFactory->create()
+            ->addAttributeToSelect('*')
+            ->load();
+            foreach ($collection as $product) {
+                if ($this->getStockStatus($product->getId())==true) {
+                    if ($product->getFilterStock()=='' || $product->getFilterStock()==null) {
+                        $product->setFilterStock(1);
+                        $product->save();
+                    }
+                } else {
+                    if ($product->getFilterStock()==1) {
+                        $product->setFilterStock('');
+                        $product->save();
+                    }
                 }
-            } else {
-                if ($product->getFilterStock()==1) {
-                    $product->setFilterStock(false);
-                    $product->save();
-                }
-            }
 
+            }
         }
           return $this;
     }

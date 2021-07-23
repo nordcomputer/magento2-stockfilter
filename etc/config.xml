@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <stockfilter>
+        <cataloginventory>
             <cronjobs>
+                <is_enabled>1</is_enabled>
                 <cronjobupdate>/30 * * * *</cronjobupdate>
             </cronjobs>
-        </stockfilter>
+        </cataloginventory>
     </default>
 </config>
