@@ -29,18 +29,14 @@ class UpdateStockFilter
             ->addAttributeToSelect('*')
             ->load();
             foreach ($collection as $product) {
+                $oldfilterstock=$product->getFilterStock();
+                $product->setFilterStock('');
                 if ($this->getStockStatus($product->getId())==true) {
-                    if ($product->getFilterStock()=='' || $product->getFilterStock()==null) {
                         $product->setFilterStock(1);
-                        $product->save();
-                    }
-                } else {
-                    if ($product->getFilterStock()==1) {
-                        $product->setFilterStock('');
-                        $product->save();
-                    }
                 }
-
+                if ($oldfilterstock!=$product->getFilterStock()) {
+                    $product->save();
+                }
             }
         }
           return $this;
