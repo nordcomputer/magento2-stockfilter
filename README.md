@@ -1,4 +1,4 @@
-# Mage2 Module Nordcomputer Stockfilter
+# Magento 2 Module Nordcomputer Stockfilter
 
     ``nordcomputer/module-stockfilter``
 
@@ -24,11 +24,7 @@ Enabels filtering by stock status
 
 ### Type 2: Composer
 
- - Make the module available in a composer repository for example:
-    - private repository `repo.magento.com`
-    - public repository `packagist.org`
-    - public github repository as vcs
- - Add the composer repository to the configuration by running `composer config repositories.repo.magento.com composer https://repo.magento.com/`
+ - Add the composer repository to the configuration by running `composer config repositories.nordcomputer/module-stockfilter git "git@github.com:nordcomputer/magento2-stockfilter.git"`
  - Install the module composer by running `composer require nordcomputer/module-stockfilter`
  - enable the module by running `php bin/magento module:enable Nordcomputer_Stockfilter`
  - apply database updates by running `php bin/magento setup:upgrade`\*
@@ -37,15 +33,6 @@ Enabels filtering by stock status
 
 ## Configuration
 
+You can find the configuration for this extension in `Stores -> Configuration -> Catalog -> Inventory -> Stock Filter Cronjob Configuration`
 
-
-
-## Specifications
-
-
-
-
-## Attributes
-
-
-
+The Cronjob iterates over all simple products and sets the newly created attribute "filter-stock" according to the stock status of the product.
