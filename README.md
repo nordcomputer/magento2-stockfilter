@@ -1,4 +1,5 @@
 # Magento 2 Module Nordcomputer Stockfilter
+<img src="https://img.shields.io/github/v/release/nordcomputer/magento2-stockfilter"> <img src="https://img.shields.io/badge/magento-v2.4.2-green?style=plastic&logo=magento"> <img src="https://img.shields.io/codacy/grade/977f45272789467ca9a0c4d0460836b6"> <img src="https://img.shields.io/github/issues/nordcomputer/magento2-stockfilter"> <img src="https://img.shields.io/github/forks/nordcomputer/magento2-stockfilter"> <img src="https://img.shields.io/github/stars/nordcomputer/magento2-stockfilter">
 
     ``nordcomputer/module-stockfilter``
 
