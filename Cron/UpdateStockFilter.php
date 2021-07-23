@@ -27,6 +27,7 @@ class UpdateStockFilter
         if ($this->scopeConfig->getValue('cataloginventory/cronjobs/is_enabled')==1) {
             $collection = $this->CollectionFactory->create()
             ->addAttributeToSelect('*')
+            ->addAttributeToFilter('type_id', \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
             ->load();
             foreach ($collection as $product) {
                 $oldfilterstock=$product->getFilterStock();
