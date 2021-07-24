@@ -3,7 +3,6 @@
     <system>
         <section id="cataloginventory" translate="label tooltip comment" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
               <group id="cronjobs" translate="label tooltip comment" type="text" sortOrder="999999" showInDefault="1" showInWebsite="1" showInStore="1">
-                <resource>Nordcomputer_Stockfilter::main</resource>
                 <label>Stock Filter Cronjob Configuration</label>
                 <field id="is_enabled" translate="label" type="select" sortOrder="2" showInDefault="1" canRestore="1">
                     <label>Enable Cronjob for stock-filter</label>
@@ -15,6 +14,5 @@
                 </field>
               </group>
           </section>
-
     </system>
 </config>
