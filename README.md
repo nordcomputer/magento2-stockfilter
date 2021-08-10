@@ -16,7 +16,7 @@ Enabels filtering by stock status
 
 ### Type 1: Zip file
 
- - Unzip the zip file in `app/code/Nordcomputer`
+ - Unzip the zip file in `app/code/Nordcomputer` and rename the directory to `Stockfilter`
  - Enable the module by running `php bin/magento module:enable Nordcomputer_Stockfilter`
  - Apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
