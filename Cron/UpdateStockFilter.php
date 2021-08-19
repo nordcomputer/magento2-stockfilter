@@ -1,5 +1,4 @@
 <?php
-
 namespace Nordcomputer\Stockfilter\Cron;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -7,8 +6,10 @@ use Magento\Framework\App\ResourceConnection;
 
 class UpdateStockFilter
 {
-    private $logger;
-
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param ResourceConnection $resourceConnection
+     */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ResourceConnection $resourceConnection
@@ -16,6 +17,9 @@ class UpdateStockFilter
         $this->scopeConfig = $scopeConfig;
         $this->resourceConnection = $resourceConnection;
     }
+    /**
+     * Executes Cronjob for updating 'stock_filter' parameter
+     */
     public function execute()
     {
         if ($this->scopeConfig->getValue('cataloginventory/cronjobs/is_enabled')==1) {
@@ -30,5 +34,4 @@ class UpdateStockFilter
         }
         return $this;
     }
-
 }
