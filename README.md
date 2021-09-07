@@ -35,3 +35,23 @@ Enabels filtering by stock status
 You can find the configuration for this extension in `Stores -> Configuration -> Catalog -> Inventory -> Stock Filter Cronjob Configuration`
 
 The Cronjob iterates over all simple products and sets the newly created attribute "filter-stock" according to the stock status of the product.
+
+
+## Uninstalling
+
+As this extension creates an attribute, the attribute needs to be removed when the extension get uninstalled.
+
+# Method 1 (installed via composer)
+You can uninstall this extension by running 'bin/magento module:uninstall Nordcomputer_Stockfilter --remove-data'
+
+# Method 2 (installed via Download)
+- delete the `Stockfilter` directory in `/app/code/Nordcomputer`
+- delete `filter_stock` from the `eav_attribute` table in your database
+- run following commands:
+
+  ```bin/magento setup:upgrade
+  bin/magento setup:di:compile
+  bin/magento setup:static-content:deploy -f
+  bin/magento indexer:reindex
+  bin/magento c:f
+  ```

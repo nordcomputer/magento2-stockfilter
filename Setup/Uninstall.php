@@ -24,7 +24,7 @@ class Uninstall implements UninstallInterface
 
         $eavSetup = $this->eavSetupFactory->create();
 
-        $eavSetup->removeAttribute(1, 'filter_stock');
+        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'filter_stock');
 
         $setup->endSetup();
     }
