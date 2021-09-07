@@ -29,6 +29,12 @@ Enabels filtering by stock status
  - apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
+## Steps after installation (IMPORTANT)
+
+- Since this extension does not set the attribute for existing products (the value stays empty after installation), you need to set the      attribute to `Yes` for every simple product (you can do so by mass-action).
+- Also every new created product needs to be set to `Yes` (Default value) for at least one time, otherwise, the attribute for that specific product does not get created.
+
+Once the attribute was set to `Yes` at least one time, the cronjob does his thing and sets the value automatically with every run.
 
 ## Configuration
 
