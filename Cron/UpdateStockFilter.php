@@ -1,53 +1,37 @@
 <?php
-
 namespace Nordcomputer\Stockfilter\Cron;
 
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-use Magento\CatalogInventory\Api\StockRegistryInterface;
-use Magento\CatalogInventory\Api\Data\StockItemInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\ResourceConnection;
 
 class UpdateStockFilter
 {
-    protected $CollectionFactory;
-
-    private $stockRegistry;
-
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     * @param ResourceConnection $resourceConnection
+     */
     public function __construct(
-        CollectionFactory $CollectionFactory,
-        StockRegistryInterface $stockRegistry,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        ResourceConnection $resourceConnection
     ) {
-        $this->CollectionFactory = $CollectionFactory;
-        $this->stockRegistry = $stockRegistry;
         $this->scopeConfig = $scopeConfig;
+        $this->resourceConnection = $resourceConnection;
     }
+    /**
+     * Executes Cronjob for updating 'stock_filter' parameter
+     */
     public function execute()
     {
         if ($this->scopeConfig->getValue('cataloginventory/cronjobs/is_enabled')==1) {
-            $collection = $this->CollectionFactory->create()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('type_id', \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
-            ->load();
-            foreach ($collection as $product) {
-                $oldfilterstock=$product->getFilterStock();
-                $product->setFilterStock('');
-                if ($this->getStockStatus($product->getId())==true) {
-                        $product->setFilterStock(1);
-                }
-                if ($oldfilterstock!=$product->getFilterStock()) {
-                    $product->save();
-                }
-            }
+            $connection = $this->resourceConnection->getConnection();
+            $table = $connection->getTableName('catalog_product_entity_int');
+            // Update query
+            $query = "UPDATE " . $table . " t
+            JOIN cataloginventory_stock_status a ON a.product_id = t.entity_id
+            JOIN eav_attribute ap ON ap.attribute_id = t.attribute_id
+            SET value = stock_status WHERE attribute_code = 'filter_stock'";
+            $connection->query($query);
         }
-          return $this;
-    }
-
-    public function getStockStatus($productId)
-    {
-        /** @var StockItemInterface $stockItem */
-        $stockItem = $this->stockRegistry->getStockItem($productId);
-        $isInStock = $stockItem ? $stockItem->getIsInStock() : false;
-        return $isInStock;
+        return $this;
     }
 }
