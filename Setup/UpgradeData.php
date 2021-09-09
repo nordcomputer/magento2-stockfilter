@@ -9,12 +9,22 @@ use Magento\Eav\Setup\EavSetup;
 
 class UpgradeData implements UpgradeDataInterface
 {
+    /**
+     *
+     * @param Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+     */
     public function __construct(
         EavSetup $eavSetupFactory
     ) {
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
+    /**
+     * Upgrades filter_stock attribute
+     *
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface $context
+     */
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
@@ -33,7 +43,7 @@ class UpgradeData implements UpgradeDataInterface
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'visible' => true,
                 'required' => false,
-                'default' => '',
+                'default' => 1,
                 'searchable' => false,
                 'filterable' => true,
                 'comparable' => false,
