@@ -45,7 +45,7 @@ class InstallData implements InstallDataInterface
                 'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'visible' => true,
                 'required' => false,
-                'default' => '',
+                'default' => 1,
                 'searchable' => false,
                 'filterable' => true,
                 'comparable' => false,
