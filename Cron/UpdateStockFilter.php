@@ -74,7 +74,7 @@ class UpdateStockFilter
         }
         try {
             return $this->stockRepository->getList()->getTotalCount();
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error('Nordcomputer_Stockfilter: Error while getting number of stocks: ' . $exception->getMessage());
         }
         return 0;
