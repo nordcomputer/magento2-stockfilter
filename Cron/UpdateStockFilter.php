@@ -4,7 +4,6 @@ namespace Nordcomputer\Stockfilter\Cron;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ResourceConnection;
 use Psr\Log\LoggerInterface;
-use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\InventoryApi\Api\StockRepositoryInterface;
 use Magento\Framework\Module\Manager;
 use Magento\Framework\ObjectManagerInterface;
@@ -28,11 +27,9 @@ class UpdateStockFilter
         $this->scopeConfig = $scopeConfig;
         $this->resourceConnection = $resourceConnection;
         $this->logger = $logger;
-        $this->searchCriteriaBuilder = null;
         $this->stockRepository = null;
 
         if($moduleManager->isEnabled('Magento_InventoryApi')) {
-            $this->searchCriteriaBuilder = $objectManager->get(SearchCriteriaBuilder::class);
             $this->stockRepository = $objectManager->get(StockRepositoryInterface::class);
         }
     }
@@ -72,7 +69,7 @@ class UpdateStockFilter
 
     public function getNumberOfStocks() {
         // Is MSI enabled?
-		if($this->stockRepository == null || $this->searchCriteriaBuilder == null) {
+		if($this->stockRepository == null) {
             return 0;
         }
         try {
