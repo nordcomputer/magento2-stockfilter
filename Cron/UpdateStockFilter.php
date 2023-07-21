@@ -69,7 +69,7 @@ class UpdateStockFilter
 
     public function getNumberOfStocks() {
         // Is MSI enabled?
-		if($this->stockRepository == null) {
+        if($this->stockRepository == null) {
             return 0;
         }
         try {
