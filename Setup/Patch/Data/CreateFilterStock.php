@@ -8,7 +8,7 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
 
 class CreateFilterStock implements DataPatchInterface
 {
-     /** @var ModuleDataSetupInterface */
+    /** @var ModuleDataSetupInterface */
     private $moduleDataSetup;
 
     /** @var EavSetupFactory */
