@@ -11,12 +11,30 @@ use Magento\Framework\Setup\UninstallInterface;
 
 class Uninstall implements UninstallInterface
 {
+    /** @var EavSetupFactory */
     private $eavSetupFactory;
+
+    /**
+     * Method __construct
+     *
+     * @param EavSetupFactory $eavSetupFactory
+     *
+     * @return void
+     */
 
     public function __construct(EavSetupFactory $eavSetupFactory)
     {
         $this->eavSetupFactory = $eavSetupFactory;
     }
+
+    /**
+     * Method uninstall
+     *
+     * @param SchemaSetupInterface $setup
+     * @param ModuleContextInterface $context
+     *
+     * @return void
+     */
 
     public function uninstall(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
