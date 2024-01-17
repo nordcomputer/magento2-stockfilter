@@ -1,35 +1,39 @@
 <?php
-namespace Nordcomputer\Stockfilter\Setup;
+namespace Nordcomputer\Stockfilter\Setup\Patch\Data;
 
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
-use Magento\Framework\Setup\InstallDataInterface;
-use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
 
-class InstallData implements InstallDataInterface
+class CreateFilterStock implements DataPatchInterface
 {
-    private $eavSetupFactory;
-    /**
-     *
-     * @param Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
-     */
+    /** @var ModuleDataSetupInterface */
+    private $moduleDataSetup;
 
-    public function __construct(EavSetupFactory $eavSetupFactory)
-    {
+    /** @var EavSetupFactory */
+    private $eavSetupFactory;
+
+    /**
+     * @param ModuleDataSetupInterface $moduleDataSetup
+     * @param EavSetupFactory $eavSetupFactory
+     */
+    public function __construct(
+        ModuleDataSetupInterface $moduleDataSetup,
+        EavSetupFactory $eavSetupFactory
+    ) {
+        $this->moduleDataSetup = $moduleDataSetup;
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
     /**
-     * Installs filter_stock attribute
-     *
-     * @param ModuleDataSetupInterface $setup
-     * @param ModuleContextInterface $context
+     * @inheritdoc
      */
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function apply()
     {
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
-        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'filter_stock');
+        /** @var EavSetup $eavSetup */
+
+        $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
@@ -57,5 +61,21 @@ class InstallData implements InstallDataInterface
                 'is_user_defined' => true
             ]
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getDependencies()
+    {
+        return [];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAliases()
+    {
+        return [];
     }
 }
